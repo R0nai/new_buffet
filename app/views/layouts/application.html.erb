@@ -13,6 +13,18 @@
     <header>
       <h1>Cadê Buffet</h1>
     </header>
+    <nav>
+      <% if owner_signed_in?%>
+        <%= current_owner.email %>
+        <%= button_to 'Sair', destroy_owner_session_path, method: :delete %>
+      <% else %>
+        <%= link_to 'Entrar', new_owner_session_path %>
+      <% end %>
+    </nav>
+    <div>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    </div>
     <%= yield %>
   </body>
 </html>
