@@ -1,0 +1,2 @@
+class Buffet < ApplicationRecord
+end

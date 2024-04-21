@@ -15,6 +15,7 @@
     </header>
     <nav>
       <% if owner_signed_in?%>
+        <%= link_to 'Cadastrar um Buffet', new_buffet_path%>
         <%= current_owner.email %>
         <%= button_to 'Sair', destroy_owner_session_path, method: :delete %>
       <% else %>
