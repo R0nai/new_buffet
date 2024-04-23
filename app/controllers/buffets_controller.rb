@@ -6,6 +6,7 @@ class BuffetsController < ApplicationController
 
   def show
     @buffet = Buffet.find(params[:id])
+    @is_owner_valid = current_owner && @buffet.owner_id == current_owner.id
   end
 
   def new
