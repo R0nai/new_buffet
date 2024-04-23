@@ -13,6 +13,7 @@ describe 'Owner registers a buffet' do
       fill_in 'Senha', with: 'password'
       click_on 'Entrar'
     end
+    click_on "Buffets"
     click_on 'Cadastrar um Buffet'
 
     # Assert
@@ -42,6 +43,7 @@ describe 'Owner registers a buffet' do
         fill_in 'Senha', with: 'password'
         click_on 'Entrar'
       end
+      click_on "Buffets"
       click_on 'Cadastrar um Buffet'
       fill_in 'Nome Fantasia', with: 'Kratos Buffet'
       fill_in 'Razão Social', with: 'Kratos Buffet Ltda.'

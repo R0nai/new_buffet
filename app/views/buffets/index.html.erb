@@ -1,0 +1,8 @@
+<h2>Buffets</h2>
+
+<%= @buffets.each do | buffet | %>
+  <div>
+    <%= link_to buffet.brand , buffet_path(buffet.id) %>
+  </div>
+<% end %>
+<%= link_to "Cadastrar um Buffet", new_buffet_path %>

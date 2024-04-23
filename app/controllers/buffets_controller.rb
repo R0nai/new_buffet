@@ -1,6 +1,19 @@
 class BuffetsController < ApplicationController
+  
+  def index
+    @buffets = Buffet.all
+  end
+
+  def show
+    @buffet = Buffet.find(params[:id])
+  end
+
   def new
     @buffet = Buffet.new
+  end
+
+  def edit
+    @buffet = Buffet.find(params[:id])
   end
 
   def create
@@ -22,4 +35,5 @@ class BuffetsController < ApplicationController
     @buffet.save!
     redirect_to root_path
   end
+
 end
