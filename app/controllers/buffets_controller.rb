@@ -1,7 +1,9 @@
 class BuffetsController < ApplicationController
+  before_action :authenticate_owner!, only: [:new, :edit]
   
   def index
     @buffets = Buffet.all
+    @is_owner_without_buffet = current_owner && !current_owner.buffet
   end
 
   def show
