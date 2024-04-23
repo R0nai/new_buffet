@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :owners
+  devise_for :owners, controllers: { registrations: 'registrations' }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root 'home#index'
   resources :buffets, only: [:index, :show, :new, :create, :edit, :update]
