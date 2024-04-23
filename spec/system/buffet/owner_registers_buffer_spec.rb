@@ -3,16 +3,11 @@ require 'rails_helper'
 describe 'Owner registers a buffet' do
   it 'Owner clicks on register buffet and sees registration form' do
     # Arrange
-    Owner.create!(name:'Kratos', email: 'abc@de.com', password: 'password')
+    owner = Owner.create!(name:'Kratos', email: 'abc@de.com', password: 'password')
 
     # Act
+    login_as(owner)
     visit root_path
-    click_on 'Entrar'
-    within('form') do
-      fill_in 'E-mail', with: 'abc@de.com'
-      fill_in 'Senha', with: 'password'
-      click_on 'Entrar'
-    end
     click_on "Buffets"
     click_on 'Cadastrar um Buffet'
 
@@ -36,13 +31,8 @@ describe 'Owner registers a buffet' do
       owner = Owner.create!(name:'Kratos', email: 'abc@de.com', password: 'password')
 
       # Act
+      login_as(owner)
       visit root_path
-      click_on 'Entrar'
-      within('form') do
-        fill_in 'E-mail', with: 'abc@de.com'
-        fill_in 'Senha', with: 'password'
-        click_on 'Entrar'
-      end
       click_on "Buffets"
       click_on 'Cadastrar um Buffet'
       fill_in 'Nome Fantasia', with: 'Kratos Buffet'

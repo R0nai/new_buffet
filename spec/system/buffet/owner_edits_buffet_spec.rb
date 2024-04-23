@@ -19,13 +19,9 @@ describe 'Owner edits buffet' do
                    )
 
     # Act
+    login_as(owner)
     visit root_path
-    click_on 'Entrar'
-    within('form') do
-      fill_in 'E-mail', with: owner.email
-      fill_in 'Senha', with: owner.password
-      click_on 'Entrar'
-    end
+    
     click_on "Buffets"
     click_on "Kratos Buffet"
     click_on "Editar Buffet"
@@ -65,13 +61,8 @@ describe 'Owner edits buffet' do
                    )
 
     # Act
+    login_as(other_owner)
     visit root_path
-    click_on 'Entrar'
-    within('form') do
-      fill_in 'E-mail', with: other_owner.email
-      fill_in 'Senha', with: other_owner.password
-      click_on 'Entrar'
-    end
     click_on "Buffets"
     click_on "Kratos Buffet"
 

@@ -18,13 +18,8 @@ describe 'Owner sees buffets' do
                    owner_id: owner.id
                    )
     # Act
+    login_as(owner)
     visit root_path
-    click_on 'Entrar'
-    within('form') do
-      fill_in 'E-mail', with: 'abc@de.com'
-      fill_in 'Senha', with: 'password'
-      click_on 'Entrar'
-      end
     click_on 'Buffets'
 
     # Assert
