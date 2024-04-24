@@ -9,8 +9,9 @@ class ApplicationController < ActionController::Base
   end
 
   def buffet_not_registered_yet
+    exception_routes = [destroy_owner_session_path, new_buffet_path, buffets_path]
     if current_owner && current_owner.buffet.nil?
-      unless url_for(only_path: true) == destroy_owner_session_path(only_path: true) || url_for(only_path: true) == new_buffet_path || url_for(only_path: true) == buffets_path
+      unless exception_routes.any? {|route| route == url_for(only_path: true)}
         redirect_to new_buffet_path
       end
     end
