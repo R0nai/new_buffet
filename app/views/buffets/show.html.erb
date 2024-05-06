@@ -1,5 +1,20 @@
 <h2><%= @buffet.brand %></h2>
 
+<div>
+  <span>Nome do Buffet:</span>
+  <span><%= @buffet.brand %></span>
+</div>
+<div>
+  <span>Endereço do Buffet:</span>
+  <span><%= @buffet.address %></span>
+</div>
+<div>
+  <span>Métodos de Pagamento:</span>
+  <% @buffet.payment_methods.each do |payment_method| %>
+    <%= payment_method.name %>
+    <% unless payment_method == @buffet.payment_methods.last %> , <% end %>
+  <% end %>  
+</div>
 <%if @is_owner_valid %>
   <%= link_to "Editar Buffet", edit_buffet_path(@buffet.id) %>
 <% end %>

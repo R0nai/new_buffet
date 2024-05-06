@@ -26,6 +26,59 @@ describe 'Owner registers a buffet' do
 
   end
 
+  it 'and sees payment methods in the registration form' do
+    # Arrange
+    owner = Owner.create!(name:'Kratos', email: 'abc@de.com', password: 'password')
+    pix = PaymentMethod.create!(name: 'Pix')
+    boleto = PaymentMethod.create!(name: 'Boleto')
+
+    # Act
+    login_as(owner)
+    visit root_path
+    click_on "Buffets"
+    click_on 'Cadastrar um Buffet'
+
+    # Assert
+    expect(page).to have_content 'Formas de Pagamento'
+    expect(page).to have_field 'Nome Fantasia'
+    expect(page).to have_content pix.name
+    expect(page).to have_content boleto.name
+
+  end
+
+  it 'and payment methods are registered in the database' do
+    # Arrange
+    owner = Owner.create!(name:'Kratos', email: 'abc@de.com', password: 'password')
+    pix = PaymentMethod.create!(name: 'Pix')
+    boleto = PaymentMethod.create!(name: 'Boleto')
+
+    # Act
+    login_as(owner)
+    visit root_path
+    click_on "Buffets"
+    click_on 'Cadastrar um Buffet'
+    fill_in 'Nome Fantasia', with: 'Kratos Buffet'
+    fill_in 'Razão Social', with: 'Kratos Buffet Ltda.'
+    fill_in 'CNPJ', with: '123456'
+    fill_in 'Telefone', with: '12-99999999'
+    fill_in 'E-mail', with: 'kratos@uol.com'
+    fill_in 'Endereço', with: 'Rua do Kratos, 100'
+    fill_in 'Bairro', with: 'Jardim Kratolândia'
+    fill_in 'Cidade', with: 'Kratosland'
+    fill_in 'Estado', with: 'SP'
+    fill_in 'CEP', with: '12000-100'
+    fill_in 'Descrição', with: 'Pequena descrição'
+    check pix.name
+    check boleto.name
+    click_on 'Cadastrar Buffet'
+
+    # Assert
+    buffet = Buffet.last
+    expect(buffet.payment_methods).not_to eq nil
+    expect(buffet.payment_methods).to eq [pix,boleto]
+
+  end
+
   it 'Successfully' do
       # Arrange
       owner = Owner.create!(name:'Kratos', email: 'abc@de.com', password: 'password')
@@ -55,11 +108,12 @@ describe 'Owner registers a buffet' do
   end
 end
 
+
 describe 'Owner tries to register a second buffet' do
   it 'and fails for it cannot find buffet registration link ' do
     # Arrange
     owner = Owner.create!(name:'Kratos', email: 'abc@de.com', password: 'password')
-    buffet = Buffet.create!(brand: 'Kratos Buffet',
+    Buffet.create!(brand: 'Kratos Buffet',
                    corporate_name: 'Kratos Buffet Ltda.',
                    registration_number: '123456',
                    phone_number: '12-99999999',

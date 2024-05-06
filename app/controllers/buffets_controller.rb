@@ -13,10 +13,15 @@ class BuffetsController < ApplicationController
 
   def new
     @buffet = Buffet.new
+    @payment_methods = PaymentMethod.all
   end
 
   def edit
     @buffet = Buffet.find(params[:id])
+    @payment_methods = PaymentMethod.all
+  end
+
+  def update
   end
 
   def create
@@ -31,11 +36,15 @@ class BuffetsController < ApplicationController
       :state,
       :city,
       :zip_code,
-      :description
+      :description,
+      payment_method_ids: []
     )
     @buffet = Buffet.new(buffet_params)
     @buffet.owner_id = current_owner.id
     @buffet.save!
+    @buffet.payment_methods.each do |payment|
+      print payment
+    end
     redirect_to root_path
   end
 

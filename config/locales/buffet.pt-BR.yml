@@ -13,3 +13,4 @@ pt-BR:
         city: Cidade
         zip_code: CEP
         description: Descrição
+        payment_method: Formas de Pagamento
